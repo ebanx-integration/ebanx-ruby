@@ -2,6 +2,7 @@ require 'rest-client'
 require 'json'
 
 require_relative 'ebanx/version'
+require_relative 'ebanx/response'
 require_relative 'ebanx/command/command'
 require_relative 'ebanx/command/cancel'
 require_relative 'ebanx/command/capture'
@@ -18,7 +19,7 @@ module Ebanx
   @test_mode = false
 
   class << self
-    attr_accessor :integration_key, :test_mode
+    attr_accessor :integration_key, :test_mode, :parse_response
   end
 
   def self.base_uri
@@ -45,8 +46,8 @@ module Ebanx
 
   def self.request(command)
     uri = Ebanx::base_uri + command.request_action
-    result = RestClient.send command.request_method, uri, params: command.params, content_type: command.response_type
-    JSON.parse result
+    response = RestClient.send command.request_method, uri, params: command.params, content_type: command.response_type
+    Ebanx::Response.new response, command.response_type
   end
 
   def self.method_missing(method, *args, &block)

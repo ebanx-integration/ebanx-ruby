@@ -1,14 +1,21 @@
 module Ebanx
   module Command
     class Command
-      attr_accessor :params, :request_method, :request_action, :response_type
+      @request_body = false
+
+      attr_accessor :params, :request_method, :request_action, :response_type, :request_body
 
       def valid?
         validate
       end
 
       def params
-
+        # Wraps parameters into request_body
+        if request_body
+          { request_body: @params.to_json }
+        else
+          @params
+        end
       end
 
       protected
