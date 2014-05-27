@@ -7,6 +7,10 @@ module Ebanx
         validate
       end
 
+      def params
+
+      end
+
       protected
       def validate
         raise NotImplementedError

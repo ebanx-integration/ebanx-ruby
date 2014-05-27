@@ -11,7 +11,8 @@ require_relative 'ebanx/command/query'
 require_relative 'ebanx/command/refund'
 require_relative 'ebanx/command/refund_or_cancel'
 require_relative 'ebanx/command/request'
-
+require_relative 'ebanx/command/token'
+require_relative 'ebanx/command/zipcode'
 
 module Ebanx
   @test_mode = false
@@ -22,14 +23,17 @@ module Ebanx
 
   def self.base_uri
     if @test_mode
-      'https://www.ebanx.com/test/ws/'
+      'https://sandbox.ebanx.com/ws/'
     else
       'https://www.ebanx.com/pay/ws/'
     end
   end
 
+  protected
   def self.run_command(method, params)
     klass = get_command_class method
+
+    raise ArgumentError if !params[0] || params[0].length == 0
 
     params = params[0].merge! integration_key: @integration_key
     command = klass.new params
