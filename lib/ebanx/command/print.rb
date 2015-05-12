@@ -1,10 +1,10 @@
 module Ebanx
   module Command
-    class PrintHtml < Command
+    class Print < Command
       def initialize(params)
         @params         = params
         @request_method = :get
-        @request_action = 'boleto/printHTML'
+        @request_action = 'print'
         @response_type  = 'text/html'
       end
 

@@ -11,7 +11,7 @@ module Ebanx
 
       def params
         # Wraps parameters into request_body
-        if request_body
+        if @request_body
           { request_body: @params.to_json }
         else
           @params
