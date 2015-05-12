@@ -2,6 +2,9 @@ require 'ebanx'
 require 'minitest/autorun'
 require 'minitest/spec'
 require 'minitest/pride'
+require 'codeclimate-test-reporter'
+
+CodeClimate::TestReporter.start
 
 class MiniTest::Spec
   def ebanx

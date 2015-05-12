@@ -1,4 +1,4 @@
-# EBANX
+# EBANX Ruby gem [![Build Status](https://travis-ci.org/ebanx-integration/ebanx-ruby.svg?branch=master)](https://travis-ci.org/ebanx-integration/ebanx-ruby) [![Code Climate](https://codeclimate.com/github/ebanx-integration/ebanx-ruby/badges/gpa.svg)](https://codeclimate.com/github/ebanx-integration/ebanx-ruby) [![Test Coverage](https://codeclimate.com/github/ebanx-integration/ebanx-ruby/badges/coverage.svg)](https://codeclimate.com/github/ebanx-integration/ebanx-ruby/coverage)
 Gem to communicate with EBANX.
 
 Documentation: https://developers.ebanx.com/
