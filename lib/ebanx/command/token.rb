@@ -6,6 +6,7 @@ module Ebanx
         @request_method = :post
         @request_action = 'token'
         @response_type  = :json
+        @request_body   = true
       end
 
       def validate
