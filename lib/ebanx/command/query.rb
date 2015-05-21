@@ -9,7 +9,7 @@ module Ebanx
       end
 
       def validate
-        validate_presence :hash
+        validate_presence_or :hash, :merchant_payment_code
       end
     end
   end

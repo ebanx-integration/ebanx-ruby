@@ -1,6 +1,6 @@
 module Ebanx
   module Command
-    class Zipcode < Command
+    class Token < Command
       def initialize(params)
         @params         = params
         @request_method = :post
@@ -9,12 +9,8 @@ module Ebanx
       end
 
       def validate
-        validate_presence :currency_code
-        validate_presence :amount
-        validate_presence :merchant_payment_code
-        validate_presence :name
-        validate_presence :email
         validate_presence :payment_type_code
+        validate_presence :creditcard
       end
     end
   end
