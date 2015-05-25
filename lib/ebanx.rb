@@ -37,20 +37,32 @@ module Ebanx
 
     raise ArgumentError if !params[0] || params[0].length == 0
 
-    params = params[0].merge! integration_key: @integration_key
-    command = klass.new params
-
+    command = klass.new merge_default_params(klass, params)
     command.valid?
 
     request command
+  end
+
+  def self.merge_default_params(command, params)
+    params = params[0].merge integration_key: @integration_key
+
+    if command.name =~ /Direct$/
+      params = params.merge! operation: 'request', mode: 'full'
+    end
+
+    params
   end
 
   def self.request(command)
     uri = Ebanx::base_uri + command.request_action
 
     case command.request_method
-      when :post then response = RestClient.post uri, command.params, content_type: command.response_type
-      when :get  then response = RestClient.get uri, params: command.params
+    when :post
+      response = RestClient.post uri, command.params, content_type: command.response_type
+    when :get
+      response = RestClient.get uri, params: command.params
+    else
+      raise ArgumentError "Request method #{command.request_method.to_s} is not supported."
     end
 
     Ebanx::Response.new response, command.response_type

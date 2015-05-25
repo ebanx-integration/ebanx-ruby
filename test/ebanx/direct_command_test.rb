@@ -3,8 +3,6 @@ require_relative '../test_helper'
 describe Ebanx::Command::Direct do
   before do
     @params = {
-      operation: 'request',
-      mode: 'full',
       payment: {
         name: 'João da Silva',
         email: 'joao@mailinator.com',
