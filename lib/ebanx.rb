@@ -7,6 +7,7 @@ require_relative 'ebanx/command/command'
 require_relative 'ebanx/command/cancel'
 require_relative 'ebanx/command/capture'
 require_relative 'ebanx/command/direct'
+require_relative 'ebanx/command/document_balance'
 require_relative 'ebanx/command/exchange'
 require_relative 'ebanx/command/print'
 require_relative 'ebanx/command/query'
@@ -27,7 +28,7 @@ module Ebanx
     if @test_mode
       'https://sandbox.ebanx.com/ws/'
     else
-      'https://www.ebanx.com/pay/ws/'
+      'https://api.ebanx.com/ws/'
     end
   end
 
