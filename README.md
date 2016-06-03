@@ -18,9 +18,17 @@ Or install it yourself as:
 
 ## Usage
 
+#### Auth
+```ruby
+Ebanx.tap do |e|
+  e.integration_key = '<<< Your integration key >>>'
+  e.test_mode       = true
+end
+```
+
 #### Create a new Boleto using Direct API
 ```ruby
-response = ebanx.do_direct {
+response = Ebanx.do_direct(
   operation: 'request',
   mode: 'full',
   payment: {
@@ -42,7 +50,7 @@ response = ebanx.do_direct {
     phone_number: '6130001111',
     due_date: (Time.now + 86400).strftime('%d/%m/%Y')
   }
-}
+)
 
 ```
 
