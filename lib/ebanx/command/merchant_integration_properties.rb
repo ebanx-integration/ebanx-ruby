@@ -9,6 +9,7 @@ module Ebanx
       end
 
       def validate
+        validate_presence :image
         validate_presence :url_response
         validate_presence :url_status_change_notification
       end
