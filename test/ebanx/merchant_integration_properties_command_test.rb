@@ -3,15 +3,14 @@ require_relative '../test_helper'
 describe Ebanx::Command::MerchantIntegrationProperties do
   before do
     @params = {
-      url_response: 'http://google.com.br',
-      url_status_change_notification: 'http://google.com.br'
+      url_response: 'http://portquiz.net/',
+      url_status_change_notification: 'http://portquiz.net/'
     }
   end
 
   it "can't run without arguments" do
     lambda { ebanx.do_merchant_integration_properties }.must_raise ArgumentError
   end
-
 
   it "performs a successful merchant integration properties" do
     response = ebanx.do_merchant_integration_properties @params
