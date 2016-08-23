@@ -14,6 +14,7 @@ describe Ebanx::Command::EditMerchantIntegrationProperties do
          Q0NDQ0NTS5MdGhoaGhoaGhoaGhoaGhoaGhoaGhoaGposzSHAAErMwwQ2HwRQ
          AAAAAElFTkSuQmCC',
       url_response: 'http://portquiz.net/',
+      receipt_email: 'merchant@portquiz.net',
       url_status_change_notification: 'http://portquiz.net/'
     }
   end
@@ -25,6 +26,7 @@ describe Ebanx::Command::EditMerchantIntegrationProperties do
   it "can't run with invalid base64" do
     params = @params.clone
     params.delete(:url_response)
+    params.delete(:receipt_email)
     params.delete(:url_status_change_notification)
 
     params[:image] = 'iVBORw0KGgoAAAANSUhEUgAAAM0AAAD'
@@ -32,9 +34,21 @@ describe Ebanx::Command::EditMerchantIntegrationProperties do
     lambda { ebanx.do_edit_merchant_integration_properties params }.must_raise ArgumentError
   end
 
+  it "can't run with invalid email" do
+    params = @params.clone
+    params.delete(:image)
+    params.delete(:url_response)
+    params.delete(:url_status_change_notification)
+
+    params[:receipt_email] = '...'
+
+    lambda { ebanx.do_edit_merchant_integration_properties params }.must_raise ArgumentError
+  end
+
   it "can't run with invalid url_response" do
     params = @params.clone
     params.delete(:image)
+    params.delete(:receipt_email)
     params.delete(:url_status_change_notification)
 
     params[:url_response] = 'http://foo.bar'

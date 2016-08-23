@@ -11,6 +11,7 @@ module Ebanx
       def validate
         validate_presence :image
         validate_presence :url_response
+        validate_presence :receipt_email
         validate_presence :url_status_change_notification
       end
     end
