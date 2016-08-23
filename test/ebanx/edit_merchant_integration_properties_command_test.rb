@@ -1,6 +1,6 @@
 require_relative '../test_helper'
 
-describe Ebanx::Command::MerchantIntegrationProperties do
+describe Ebanx::Command::EditMerchantIntegrationProperties do
   before do
     @params = {
       image: 'iVBORw0KGgoAAAANSUhEUgAAAM0AAAD
@@ -19,25 +19,31 @@ describe Ebanx::Command::MerchantIntegrationProperties do
   end
 
   it "can't run without arguments" do
-    lambda { ebanx.do_merchant_integration_properties }.must_raise ArgumentError
+    lambda { ebanx.do_edit_merchant_integration_properties }.must_raise ArgumentError
   end
 
   it "can't run with invalid base64" do
-    params = {
-        image: 'iVBORw0KGgoAAAANSUhEUgAAAM0AAAD'
-    }
-    lambda { ebanx.do_merchant_integration_properties params }.must_raise ArgumentError
+    params = @params.clone
+    params.delete(:url_response)
+    params.delete(:url_status_change_notification)
+
+    params[:image] = 'iVBORw0KGgoAAAANSUhEUgAAAM0AAAD'
+
+    lambda { ebanx.do_edit_merchant_integration_properties params }.must_raise ArgumentError
   end
 
   it "can't run with invalid url_response" do
-    params = {
-        url_response: 'http://foo.bar'
-    }
-    lambda { ebanx.do_merchant_integration_properties params }.must_raise ArgumentError
+    params = @params.clone
+    params.delete(:image)
+    params.delete(:url_status_change_notification)
+
+    params[:url_response] = 'http://foo.bar'
+
+    lambda { ebanx.do_edit_merchant_integration_properties params }.must_raise ArgumentError
   end
 
   it "performs a successful merchant integration properties" do
-    response = ebanx.do_merchant_integration_properties @params
+    response = ebanx.do_edit_merchant_integration_properties @params
     response.http_code.must_equal 200
     response.response['status'].must_equal 'SUCCESS'
     response.response['body']['url_response'].must_equal @params[:url_response]

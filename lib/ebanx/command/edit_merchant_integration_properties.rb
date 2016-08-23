@@ -1,10 +1,10 @@
 module Ebanx
   module Command
-    class MerchantIntegrationProperties < Command
+    class EditMerchantIntegrationProperties < Command
       def initialize(params)
         @params         = params
         @request_method = :post
-        @request_action = 'merchantIntegrationProperties'
+        @request_action = 'merchantIntegrationProperties/edit'
         @response_type  = :json
       end
 
