@@ -1,6 +1,6 @@
 module Ebanx
   module Command
-    class CreateMerchantSettlementInfo < Command
+    class CreateMerchantSettlementRequest < Command
       def initialize(params)
         @params         = params
         @request_method = :post
