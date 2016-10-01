@@ -3,7 +3,7 @@ module Ebanx
     class GetMerchantAmountBalanceByCountry < Command
       def initialize(params)
         @params         = params
-        @request_method = :get
+        @request_method = :post
         @request_action = 'merchantSettlement/getAmountBalanceByCountry'
         @response_type  = :json
       end
