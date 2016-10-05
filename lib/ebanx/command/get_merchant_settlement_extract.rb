@@ -3,7 +3,7 @@ module Ebanx
     class GetMerchantSettlementExtract < Command
       def initialize(params)
         @params         = params
-        @request_method = :get
+        @request_method = :post
         @request_action = 'merchantSettlement/getExtract'
         @response_type  = :json
       end

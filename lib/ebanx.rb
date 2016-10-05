@@ -66,7 +66,7 @@ module Ebanx
 
     case command.request_method
     when :post
-      response = RestClient.post uri, command.params, content_type: command.response_type
+      response = RestClient::Request.execute(:method => :post, content_type: command.response_type, :url => uri, :payload => command.params, :timeout => nil, :open_timeout => nil)
     when :get
       response = RestClient.get uri, params: command.params
     else
