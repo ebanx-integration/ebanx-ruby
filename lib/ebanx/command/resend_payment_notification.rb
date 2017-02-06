@@ -10,6 +10,7 @@ module Ebanx
 
       def validate
         validate_presence :hash
+        validate_presence :secret
       end
     end
   end

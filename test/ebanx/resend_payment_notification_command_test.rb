@@ -3,7 +3,8 @@ require_relative '../test_helper'
 describe Ebanx::Command::ResendPaymentNotification do
   before do
     @params = {
-      hash: 'c8f63411007fd3d4a060ae1f0daf54d3'
+      hash: 'c8f63411007fd3d4a060ae1f0daf54d3',
+      secret: '123'
     }
   end
 
