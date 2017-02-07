@@ -4,13 +4,12 @@ module Ebanx
       def initialize(params)
         @params         = params
         @request_method = :post
-        @request_action = 'payment/resendNotification'
+        @request_action = 'everest/resendNotification'
         @response_type  = :json
       end
 
       def validate
         validate_presence :hash
-        validate_presence :secret
       end
     end
   end
