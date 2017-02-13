@@ -1,6 +1,6 @@
 if ENV['CODECLIMATE_REPO_TOKEN']
-	require 'simplecov'
-	SimpleCov.start
+  require 'simplecov'
+  SimpleCov.start
 end
 
 require 'ebanx'

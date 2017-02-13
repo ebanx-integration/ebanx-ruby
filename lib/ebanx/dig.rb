@@ -15,10 +15,10 @@ end
 
 if RUBY_VERSION < '2.3'
   class Array
-    include Dig
+    include EBANX::Dig
   end
 
   class Hash
-    include Dig
+    include EBANX::Dig
   end
 end
