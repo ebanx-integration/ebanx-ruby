@@ -27,10 +27,15 @@ require_relative 'ebanx/command/zipcode'
 require_relative 'ebanx/command/payout_create'
 require_relative 'ebanx/command/payout_cancel'
 require_relative 'ebanx/command/payout_retrieve'
+require_relative 'ebanx/command/payout_search'
 require_relative 'ebanx/command/payout_simulate'
 require_relative 'ebanx/command/payout_balance'
 require_relative 'ebanx/command/payout_banks'
 require_relative 'ebanx/command/payout_bank_details'
+require_relative 'ebanx/command/deposit_create'
+require_relative 'ebanx/command/deposit_cancel'
+require_relative 'ebanx/command/deposit_retrieve'
+require_relative 'ebanx/command/deposit_search'
 
 module Ebanx
   @test_mode = false
@@ -84,7 +89,7 @@ module Ebanx
         raise ArgumentError "Request method #{command.request_method.to_s} is not supported."
       end
     rescue RestClient::ExceptionWithResponse => e
-        raise ArgumentError.new e.response
+        raise ArgumentError.new "#{e} - #{e.response}"
     end
 
     Ebanx::Response.new response, command.response_type
