@@ -2,6 +2,7 @@ require 'rest-client'
 require 'json'
 
 require_relative 'ebanx/version'
+require_relative 'ebanx/dig'
 require_relative 'ebanx/response'
 require_relative 'ebanx/command/command'
 require_relative 'ebanx/command/cancel'
@@ -23,6 +24,18 @@ require_relative 'ebanx/command/get_merchant_amount_balance_by_country'
 require_relative 'ebanx/command/request'
 require_relative 'ebanx/command/token'
 require_relative 'ebanx/command/zipcode'
+require_relative 'ebanx/command/payout_create'
+require_relative 'ebanx/command/payout_cancel'
+require_relative 'ebanx/command/payout_retrieve'
+require_relative 'ebanx/command/payout_search'
+require_relative 'ebanx/command/payout_simulate'
+require_relative 'ebanx/command/payout_balance'
+require_relative 'ebanx/command/payout_banks'
+require_relative 'ebanx/command/payout_bank_details'
+require_relative 'ebanx/command/deposit_create'
+require_relative 'ebanx/command/deposit_cancel'
+require_relative 'ebanx/command/deposit_retrieve'
+require_relative 'ebanx/command/deposit_search'
 
 module Ebanx
   @test_mode = false
@@ -42,16 +55,18 @@ module Ebanx
   protected
   def self.run_command(method, params)
     klass = get_command_class method
+    required_params = klass.instance_method(:initialize).parameters.size
 
-    raise ArgumentError if !params[0] || params[0].length == 0
+    raise ArgumentError if (!params[0] || params[0].length == 0) && required_params != 0
 
-    command = klass.new merge_default_params(klass, params)
+    command = required_params == 0 ? klass.new : klass.new(merge_default_params(klass, params))
     command.valid?
 
     request command
   end
 
   def self.merge_default_params(command, params)
+    return params if params.empty?
     params = params[0].merge integration_key: @integration_key
 
     if command.name =~ /Direct$/
@@ -64,13 +79,17 @@ module Ebanx
   def self.request(command)
     uri = Ebanx::base_uri + command.request_action
 
-    case command.request_method
-    when :post
-      response = RestClient::Request.execute(:method => :post, content_type: command.response_type, :url => uri, :payload => command.params, :timeout => nil, :open_timeout => nil)
-    when :get
-      response = RestClient.get uri, params: command.params
-    else
-      raise ArgumentError "Request method #{command.request_method.to_s} is not supported."
+    begin
+      case command.request_method
+      when :post
+        response = RestClient::Request.execute(:method => :post, content_type: command.response_type, :url => uri, :payload => command.params, :timeout => nil, :open_timeout => nil)
+      when :get
+        response = RestClient.get uri, params: command.params
+      else
+        raise ArgumentError "Request method #{command.request_method.to_s} is not supported."
+      end
+    rescue RestClient::ExceptionWithResponse => e
+        raise ArgumentError.new "#{e} - #{e.response}"
     end
 
     Ebanx::Response.new response, command.response_type

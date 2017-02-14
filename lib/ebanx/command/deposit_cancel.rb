@@ -1,17 +1,15 @@
 module Ebanx
   module Command
-    class Token < Command
+    class DepositCancel < Command
       def initialize(params)
         @params         = params
         @request_method = :post
-        @request_action = 'token'
+        @request_action = 'deposit/cancel'
         @response_type  = :json
-        @request_body   = true
       end
 
       def validate
-        validate_presence :payment_type_code
-        validate_presence :creditcard
+        validate_presence_or :deposit_code, :uid
       end
     end
   end

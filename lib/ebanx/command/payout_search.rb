@@ -1,17 +1,16 @@
 module Ebanx
   module Command
-    class Token < Command
+    class PayoutSearch < Command
       def initialize(params)
         @params         = params
         @request_method = :post
-        @request_action = 'token'
+        @request_action = 'payout/search'
         @response_type  = :json
-        @request_body   = true
       end
 
       def validate
-        validate_presence :payment_type_code
-        validate_presence :creditcard
+        validate_presence :date_from
+        validate_presence :date_to
       end
     end
   end

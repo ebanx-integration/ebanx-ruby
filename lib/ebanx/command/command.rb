@@ -23,14 +23,18 @@ module Ebanx
         raise NotImplementedError
       end
 
-      def validate_presence(name)
-        raise ArgumentError unless @params.include? name
+      def validate_presence(*names)
+        raise ArgumentError.new("Missing argument #{names}") unless @params.dig *names
         true
+      end
+
+      def validate_with_callback(names, callback)
+        callback.call(@params.dig(*names), @params)
       end
 
       def validate_presence_or(name1, name2)
         unless @params.include?(name1) || @params.include?(name2)
-          raise ArgumentError
+          raise ArgumentError.new("Missing argument, obligatory #{name1} or #{name2}")
         end
 
         true

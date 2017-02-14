@@ -1,17 +1,17 @@
 module Ebanx
   module Command
-    class Token < Command
+    class PayoutSimulate < Command
       def initialize(params)
         @params         = params
         @request_method = :post
-        @request_action = 'token'
+        @request_action = 'payout/simulate'
         @response_type  = :json
-        @request_body   = true
       end
 
       def validate
-        validate_presence :payment_type_code
-        validate_presence :creditcard
+        validate_presence :country
+        validate_presence :amount
+        validate_presence :currency_code
       end
     end
   end
