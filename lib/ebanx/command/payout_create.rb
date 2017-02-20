@@ -16,8 +16,6 @@ module Ebanx
         validate_presence :payee
         validate_presence :payee, :name
         validate_presence :payee, :email
-        validate_presence :payee, :phone
-        validate_presence :payee, :birthdate
         validate_with_callback [:payee, :document], -> (value, object) {(object[:country] == 'mx' || !value.nil?) or raise ArgumentError.new("Missing argument [:payee, :document]")}
         validate_with_callback [:payee, :document_type], -> (value, object) {(object[:country] == 'mx' || !value.nil?) or raise ArgumentError.new("Missing argument [:payee, :document_type]")}
       end
