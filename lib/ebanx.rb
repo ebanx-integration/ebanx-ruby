@@ -110,7 +110,7 @@ module Ebanx
   end
 
   def self.get_command_class(method)
-    method = method.gsub /^do_/, ''
+    method = method.gsub(/^do_/, '')
     class_name = 'Ebanx::Command::' + method.split('_').map { |w| w.capitalize }.join
     Object.const_get class_name
   end
