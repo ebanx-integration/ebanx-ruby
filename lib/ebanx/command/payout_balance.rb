@@ -7,6 +7,8 @@ module Ebanx
         @request_action = 'payout/balance'
         @response_type  = :json
       end
+      def validate
+      end
     end
   end
 end
