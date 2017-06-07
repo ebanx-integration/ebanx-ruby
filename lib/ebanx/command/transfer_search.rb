@@ -1,10 +1,10 @@
 module Ebanx
   module Command
-    class DepositSearch < Command
+    class TransferSearch < Command
       def initialize(params)
         @params         = params
         @request_method = :post
-        @request_action = 'deposit/search'
+        @request_action = 'transfer/search'
         @response_type  = :json
       end
 
