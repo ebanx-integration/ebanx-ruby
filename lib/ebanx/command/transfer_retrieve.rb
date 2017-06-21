@@ -9,7 +9,7 @@ module Ebanx
       end
 
       def validate
-        validate_presence_or :transfer_code, :uid, :external_reference, :settlement_code
+        validate_presence_either [:transfer_code, :uid, :external_reference, :settlement_code]
       end
     end
   end
