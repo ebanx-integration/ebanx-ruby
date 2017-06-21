@@ -39,6 +39,16 @@ module Ebanx
 
         true
       end
+
+      def validate_presence_either(args)
+        args.each do |arg|
+          if @params.include?(arg)
+            return true
+          end
+        end
+
+        raise ArgumentError.new("Missing all arguments: #{args.join(", ")}.")
+      end
     end
   end
 end

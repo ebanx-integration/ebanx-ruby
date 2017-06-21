@@ -1,10 +1,10 @@
 module Ebanx
   module Command
-    class TransferCancel < Command
+    class TransferCommit < Command
       def initialize(params)
         @params         = params
         @request_method = :post
-        @request_action = 'transfer/cancel'
+        @request_action = 'transfer/commit'
         @response_type  = :json
       end
 
