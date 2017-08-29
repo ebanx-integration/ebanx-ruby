@@ -42,6 +42,7 @@ require_relative 'ebanx/command/transfer_cancel'
 require_relative 'ebanx/command/transfer_commit'
 require_relative 'ebanx/command/transfer_retrieve'
 require_relative 'ebanx/command/transfer_search'
+require_relative 'ebanx/command/payout_resend_email'
 require_relative 'ebanx/exception/ebanx_api_exception'
 
 module Ebanx
