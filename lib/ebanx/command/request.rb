@@ -16,10 +16,6 @@ module Ebanx
         validate_presence :email
         validate_presence :payment_type_code
       end
-
-      def params
-        @params.to_json
-      end
     end
   end
 end
