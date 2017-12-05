@@ -64,9 +64,9 @@ module Ebanx
     klass = get_command_class method
     required_params = klass.instance_method(:initialize).parameters.size
 
-    raise ArgumentError if (!params[0] || params[0].length == 0) && required_params != 0
+    raise ArgumentError if (!params[0] || params[0].length.empty?) && required_params != 0
 
-    command = required_params == 0 ? klass.new : klass.new(merge_default_params(klass, params))
+    command = required_params.zero? ? klass.new : klass.new(merge_default_params(klass, params))
     command.valid?
 
     request command
