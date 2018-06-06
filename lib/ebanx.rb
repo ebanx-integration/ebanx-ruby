@@ -55,7 +55,7 @@ module Ebanx
     if @test_mode
       'https://sandbox.ebanx.com/ws/'
     else
-      'https://api.ebanx.com/ws/'
+      'https://api.ebanxpay.com/ws/'
     end
   end
 
