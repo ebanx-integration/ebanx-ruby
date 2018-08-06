@@ -53,7 +53,7 @@ module Ebanx
 
   def self.base_uri
     if @test_mode
-      'https://sandbox.ebanx.com/ws/'
+      'https://sandbox.ebanxpay.com/ws/'
     else
       'https://api.ebanxpay.com/ws/'
     end
