@@ -46,6 +46,7 @@ require_relative 'ebanx/exception/ebanx_api_exception'
 
 module Ebanx
   @test_mode = false
+  @user_data = ["EBANX-Ruby/" + Ebanx::VERSION]
 
   class << self
     attr_accessor :integration_key, :test_mode, :parse_response
@@ -89,9 +90,9 @@ module Ebanx
     begin
       case command.request_method
       when :post
-        response = RestClient::Request.execute(:method => :post, content_type: command.response_type, :url => uri, :payload => command.params, :timeout => nil, :open_timeout => nil)
+        response = RestClient::Request.execute(:method => :post, content_type: command.response_type, :url => uri, :payload => command.params, :timeout => nil, :open_timeout => nil, :headers => self.format_user_data )
       when :get
-        response = RestClient.get uri, params: command.params
+        response = RestClient.get uri, params: command.params, :headers => self.format_user_data
       else
         raise ArgumentError "Request method #{command.request_method.to_s} is not supported."
       end
@@ -116,4 +117,13 @@ module Ebanx
     class_name = 'Ebanx::Command::' + method.split('_').map { |w| w.capitalize }.join
     Object.const_get class_name
   end
+
+  def self.add_source_data(source, version)
+    @user_data << source + '/' + version
+  end
+
+  private
+    def self.format_user_data()
+      return {'X-Ebanx-Client-User-Agent' => @user_data.join(' ')}
+    end
 end
