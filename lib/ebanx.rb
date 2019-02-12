@@ -46,7 +46,7 @@ require_relative 'ebanx/exception/ebanx_api_exception'
 
 module Ebanx
   @test_mode = false
-  @user_data = ["EBANX-Ruby/" + Ebanx::VERSION]
+  @user_data = ["SDK-RUBY/" + Ebanx::VERSION]
 
   class << self
     attr_accessor :integration_key, :test_mode, :parse_response
