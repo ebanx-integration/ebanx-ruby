@@ -84,7 +84,7 @@ module Ebanx
   end
 
   def self.request(command)
-    uri = Ebanx::base_uri + command.request_action
+    uri = self::base_uri + command.request_action
 
     begin
       case command.request_method
