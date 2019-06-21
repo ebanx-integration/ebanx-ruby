@@ -13,6 +13,7 @@ module Ebanx
         validate_presence :country
         validate_presence :amount
         validate_presence :currency_code
+        validate_presence :invoice_file_url
         validate_presence :payee
         validate_presence :payee, :name
         validate_presence :payee, :email
