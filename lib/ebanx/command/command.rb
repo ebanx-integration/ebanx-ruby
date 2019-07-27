@@ -1,9 +1,8 @@
 module Ebanx
   module Command
     class Command
-      @request_body = false
-
-      attr_accessor :params, :request_method, :request_action, :response_type, :request_body
+      attr_accessor :request_method, :request_action, :response_type, :request_body
+      attr_writer :params
 
       def valid?
         validate
@@ -11,7 +10,7 @@ module Ebanx
 
       def params
         # Wraps parameters into request_body
-        if @request_body
+        if defined?(@request_body) && @request_body
           { request_body: @params.to_json }
         else
           @params
@@ -24,7 +23,7 @@ module Ebanx
       end
 
       def validate_presence(*names)
-        raise ArgumentError.new("Missing argument #{names}") unless @params.dig *names
+        raise ArgumentError.new("Missing argument #{names}") unless @params.dig(*names)
         true
       end
 
