@@ -48,8 +48,16 @@ describe Ebanx::Command::EditMerchantIntegrationProperties do
   end
 
   it "performs a successful merchant integration properties" do
-    response = ebanx.do_edit_merchant_integration_properties @params
-    response.http_code.must_equal 200
-    response.response['status'].must_equal 'SUCCESS'
+    mock = Minitest::Mock.new
+    request = Net::HTTP.new("https://sandbox.ebanxpay.com/ws/merchantIntegrationProperties/edit", @params)
+    mock.expect(:http_code, 200)
+    mock.expect(:response, { 'status' => 'SUCCESS'} )
+
+    request.stub(:post, mock) do
+      response = request.post("/ws/merchantIntegrationProperties/edit", @params)
+
+      response.http_code.must_equal 200
+      response.response['status'].must_equal 'SUCCESS'
+    end
   end
 end

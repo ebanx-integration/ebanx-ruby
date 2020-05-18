@@ -7,6 +7,8 @@ require 'ebanx'
 require 'minitest/autorun'
 require 'minitest/spec'
 require 'minitest/pride'
+require 'minitest/mock'
+require 'net/http'
 
 class MiniTest::Spec
   def ebanx
