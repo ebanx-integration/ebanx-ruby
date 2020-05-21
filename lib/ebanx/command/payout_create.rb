@@ -13,12 +13,18 @@ module Ebanx
         validate_presence :country
         validate_presence :amount
         validate_presence :currency_code
-        validate_presence :invoice_file_url
-        validate_presence :payee
-        validate_presence :payee, :name
-        validate_presence :payee, :email
-        validate_with_callback [:payee, :document], -> (value, object) {(object[:country] == 'mx' || !value.nil?) or raise ArgumentError.new("Missing argument [:payee, :document]")}
-        validate_with_callback [:payee, :document_type], -> (value, object) {(object[:country] == 'mx' || !value.nil?) or raise ArgumentError.new("Missing argument [:payee, :document_type]")}
+
+        if @params[:payee_id].nil?
+          validate_presence :invoice_file_url
+          validate_presence :payee
+          validate_presence :payee, :name
+          validate_presence :payee, :email
+          validate_with_callback [:payee, :document], -> (value, object) {(object[:country] == 'mx' || !value.nil?) or raise ArgumentError.new("Missing argument [:payee, :document]")}
+          validate_with_callback [:payee, :document_type], -> (value, object) {(object[:country] == 'mx' || !value.nil?) or raise ArgumentError.new("Missing argument [:payee, :document_type]")}
+        else
+          validate_presence :payee_id
+          validate_presence :payee_document
+        end
       end
     end
   end
