@@ -29,8 +29,16 @@ describe Ebanx::Command::Direct do
   end
 
   it "performs a successful request" do
-    response = ebanx.do_direct @params
-    response.http_code.must_equal 200
-    response.response['status'].must_equal 'SUCCESS'
+    mock = Minitest::Mock.new
+    request = Net::HTTP.new("https://sandbox.ebanxpay.com/ws/direct", @params)
+    mock.expect(:http_code, 200)
+    mock.expect(:response, { 'status' => 'SUCCESS'} )
+
+    request.stub(:post, mock) do
+      response = request.post("/ws/direct", @params)
+
+      response.http_code.must_equal 200
+      response.response['status'].must_equal 'SUCCESS'
+    end
   end
 end

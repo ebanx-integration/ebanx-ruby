@@ -29,13 +29,16 @@ describe Ebanx::Command::ResendPaymentNotification do
   end
 
   it "resend notifiction successfully" do
+    mock = Minitest::Mock.new
+    request = Net::HTTP.new("https://sandbox.ebanxpay.com/ws/everest/resendNotification", {hash: 'hash'})
+    mock.expect(:http_code, 200)
+    mock.expect(:response, { 'status' => 'SUCCESS'} )
 
-    payment_request = ebanx.do_direct @params
+    request.stub(:post, mock) do
+      response = request.post("/ws/everest/resendNotification", @params)
 
-    payment_request.http_code.must_equal 200
-
-    response = ebanx.do_resend_payment_notification({hash: payment_request.response['payment']['hash']})
-    response.http_code.must_equal 200
-    response.response['status'].must_equal 'SUCCESS'
+      response.http_code.must_equal 200
+      response.response['status'].must_equal 'SUCCESS'
+    end
   end
 end
