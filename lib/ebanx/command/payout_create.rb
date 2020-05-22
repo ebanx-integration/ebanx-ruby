@@ -15,7 +15,6 @@ module Ebanx
         validate_presence :currency_code
 
         if @params[:payee_id].nil?
-          validate_presence :invoice_file_url
           validate_presence :payee
           validate_presence :payee, :name
           validate_presence :payee, :email
