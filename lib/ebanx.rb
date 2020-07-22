@@ -62,7 +62,7 @@ module Ebanx
   end
 
   protected
-  def self.run_command(method, params)
+  def self.run_command(method, params, as_json = false)
     klass = get_command_class method
     required_params = klass.instance_method(:initialize).parameters.size
 
@@ -71,7 +71,7 @@ module Ebanx
     command = required_params == 0 ? klass.new : klass.new(merge_default_params(klass, params))
     command.valid?
 
-    request command
+    request(command, as_json)
   end
 
   def self.merge_default_params(command, params)
@@ -85,13 +85,14 @@ module Ebanx
     params
   end
 
-  def self.request(command)
+  def self.request(command, as_json)
     uri = self::base_uri + command.request_action
+    payload = as_json ? command.params.to_json : command.params
 
     begin
       case command.request_method
       when :post
-        response = RestClient::Request.execute(:method => :post, content_type: command.response_type, :url => uri, :payload => command.params, :timeout => nil, :open_timeout => nil, :headers => self.format_user_data )
+        response = RestClient::Request.execute(:method => :post, content_type: command.response_type, :url => uri, :payload => payload, :timeout => nil, :open_timeout => nil, :headers => self.format_user_data )
       when :get
         response = RestClient.get uri, params: command.params, :headers => self.format_user_data
       else
