@@ -18,7 +18,6 @@ module Ebanx
         validate_presence :bank_branch
         validate_presence :bank_account
         validate_presence :account_type
-        validate_presence :terms_accepted_at
       end
     end
   end
