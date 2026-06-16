@@ -1,4 +1,4 @@
-warn "[DEPRECATED] ebanx gem is deprecated. See https://www.ebanx.com/business/en/developers"
+warn "[DEPRECATED] ebanx gem is deprecated. See https://docs.ebanx.com/"
 
 require 'rest-client'
 require 'json'
