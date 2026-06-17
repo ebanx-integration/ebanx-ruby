@@ -1,3 +1,5 @@
+warn "[DEPRECATED] ebanx gem is deprecated. See https://docs.ebanx.com/"
+
 require 'rest-client'
 require 'json'
 
